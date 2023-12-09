@@ -32,9 +32,8 @@ class Car : public Process {
     }
     Enter(LoadingStations, 1);
     if (*Pastry <= 0) {
-      while (*Pastry <= 0 && smena) {
-        Wait(1);
-      }
+      while (_WaitUntil(*Pastry > 0 || !smena))
+        ;
       if (!smena) {
         Cancel();
       }
