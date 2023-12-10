@@ -60,7 +60,7 @@ void ElectricCar::Behavior() {
 
   double loading =
       Uniform(loading_mean - loading_sd, loading_mean + loading_sd);
-  Wait(loading); // laoding
+  Wait(loading); // loading
   Leave(*LoadingStations, 1);
   double delivery =
       Uniform(delivery_mean - delivery_sd, delivery_mean + delivery_sd);
@@ -73,7 +73,8 @@ void ElectricCar::Behavior() {
                          Uniform(spead_mean - spead_sd, spead_mean + spead_sd);
   baterryCapacity -= kilometersRidden;
 
-  (*BateryUsage)((kilometersRidden / 100) * Uniform(16, 24)); // 20kw  100 km
+  (*BateryUsage)((kilometersRidden / 100) *
+                 Uniform(16, 24)); // 20+-4 kw  100 km
   (new ElectricCar(this->Boxes, this->shift, this->afternoonShift,
                    this->morningShift, this->BateryUsage, this->DeliveryTime,
                    this->OverTime, this->LoadingStations, this->ShiftEndsEarly))
