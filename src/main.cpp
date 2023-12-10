@@ -47,16 +47,18 @@ int main(int argc, const char **argv) { // experiment description
   }
 
   if (args.help) {
-    printf("Usage: %s [OPTIONS]\n", argv[0]);
-    printf("Options:\n");
-    printf("  --electric_cars <number>  Number of electric cars\n");
-    printf("  --gas_cars <number>       Number of gas cars\n");
-    printf("  --morning_boxes <number>  Number of boxes in morning shift\n");
-    printf("  --afternoon_boxes <number>Number of boxes in afternoon shift\n");
-    printf("  --solar_panel_output <number> Solar panel output in kW\n");
-    printf("  --help                    Print this help\n");
-    return 0;
+    printf("Použití: %s [MOŽNOSTI]\n", argv[0]);
+    printf("Možnosti:\n");
+    printf("  --electric_cars <number>  Počet elektrických aut\n");
+    printf("  --gas_cars <number>       Počet aut na benzín\n");
+    printf("  --morning_boxes <number>  Počet krabic v ranní směně\n");
+    printf("  --afternoon_boxes <number>Počet krabic v odpolední směně\n");
+    printf("  --solar_panel_output <number> Výkon solárních panelů v kW\n");
+    printf("  --morning_shift <number>  Délka ranní směny v minutách\n");
+    printf("  --afternoon_shift <number>Délka odpolední směny v minutách\n");
+    printf("  --help                    Vytiskne tuto nápovědu\n");
   }
+
   if (args.morning_boxes != -1)
     morningBoxes = args.morning_boxes;
   if (args.afternoon_boxes != -1)
