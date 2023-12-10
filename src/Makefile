@@ -10,7 +10,7 @@ CXXFLAGS := $(FLAGS) --std=c++20 -lstdc++
 Cxx := g++
 
 all: $(OBJECTS)
-	$(CXX) $(CXXFLAGS) $(INCLUDE) $(OBJECTS) /usr/local/lib/libsimlib.so -o $(TARGET)
+	$(CXX) $(CXXFLAGS) $(INCLUDE) $(OBJECTS) /usr/local/lib64/libsimlib.so -o $(TARGET)
 
 %.o: ../src/%.cpp
 	$(CXX) $(CXXFLAGS) $(INCLUDE) -c $< -o $@
