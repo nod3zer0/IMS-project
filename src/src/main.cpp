@@ -50,10 +50,27 @@ int main(int argc, const char **argv) { // experiment description
     return 1;
   }
 
-  morningBoxes = args.morning_boxes;
-  afternoonBoxes = args.afternoon_boxes;
-  numberOfElectricCars = args.electric_cars;
-  numberOfGasCars = args.gas_cars;
+  if (args.help) {
+    printf("Usage: %s [OPTIONS]\n", argv[0]);
+    printf("Options:\n");
+    printf("  --help\t\t\t\tPrint this help message\n");
+    printf("  --morning-boxes\t\t\tNumber of boxes in the morning\n");
+    printf("  --afternoon-boxes\t\t\tNumber of boxes in the afternoon\n");
+    printf("  --electric-cars\t\t\tNumber of electric cars\n");
+    printf("  --gas-cars\t\t\t\tNumber of gas cars\n");
+    printf("  --solar-panel-output\t\t\tSolar panel output in kW\n");
+    return 0;
+  }
+  if (args.morning_boxes != -1)
+    morningBoxes = args.morning_boxes;
+  if (args.afternoon_boxes != -1)
+    afternoonBoxes = args.afternoon_boxes;
+  if (args.electric_cars != -1)
+    numberOfElectricCars = args.electric_cars;
+  if (args.gas_cars != -1)
+    numberOfGasCars = args.gas_cars;
+  if (args.solar_panel_output != -1)
+    solarPanelOutput = args.solar_panel_output;
 
   RandomSeed(time(nullptr));
 
