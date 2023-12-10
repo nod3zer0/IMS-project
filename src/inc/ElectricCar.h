@@ -23,8 +23,8 @@ private:
   const int loading_sd = 9.235;
   const int delivery_mean = 133.67;
   const int delivery_sd = 16.22;
-  const int return_mean = 43.2;
-  const int return_sd = 10.95;
+  const int return_mean = 37.66;
+  const int return_sd = 7.48;
   const int spead_mean = 64.22;
   const int spead_sd = 13.381;
 };

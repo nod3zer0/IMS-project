@@ -28,18 +28,14 @@ int main(int argc, const char **argv) { // experiment description
   Stat *DeliveryTime;
   Stat *FuelUsage;
   Stat *BateryUsage;
-  Stat *MorningShift;
-  Stat *AfternoonShift;
   Stat *OverTime;
   Stat *ShiftEndsEarly;
 
-  DeliveryTime = new Stat("Delivery time");
-  MorningShift = new Stat("Morning shift");
-  AfternoonShift = new Stat("Afternoon shift");
-  FuelUsage = new Stat("Fuel usage");
-  BateryUsage = new Stat("Batery usage");
-  OverTime = new Stat("Overtime");
-  ShiftEndsEarly = new Stat("Shift ends early");
+  DeliveryTime = new Stat("Čas rozvozu");
+  FuelUsage = new Stat("Spotřeba paliva");
+  BateryUsage = new Stat("Spotřeba energie");
+  OverTime = new Stat("Přesčasy");
+  ShiftEndsEarly = new Stat("Brzké ukončení směny");
 
   int *Boxes;
 
@@ -53,12 +49,12 @@ int main(int argc, const char **argv) { // experiment description
   if (args.help) {
     printf("Usage: %s [OPTIONS]\n", argv[0]);
     printf("Options:\n");
-    printf("  --help\t\t\t\tPrint this help message\n");
-    printf("  --morning-boxes\t\t\tNumber of boxes in the morning\n");
-    printf("  --afternoon-boxes\t\t\tNumber of boxes in the afternoon\n");
-    printf("  --electric-cars\t\t\tNumber of electric cars\n");
-    printf("  --gas-cars\t\t\t\tNumber of gas cars\n");
-    printf("  --solar-panel-output\t\t\tSolar panel output in kW\n");
+    printf("  --electric_cars <number>  Number of electric cars\n");
+    printf("  --gas_cars <number>       Number of gas cars\n");
+    printf("  --morning_boxes <number>  Number of boxes in morning shift\n");
+    printf("  --afternoon_boxes <number>Number of boxes in afternoon shift\n");
+    printf("  --solar_panel_output <number> Solar panel output in kW\n");
+    printf("  --help                    Print this help\n");
     return 0;
   }
   if (args.morning_boxes != -1)
@@ -79,10 +75,9 @@ int main(int argc, const char **argv) { // experiment description
   Print("Model pekárny v Křižanov\n");
   SetOutput("model.out");
   Init(0, morningShift + afternoonShift + 100);
-  (new Shift(MorningShift, AfternoonShift, Boxes, afternoonBoxes, morningBoxes,
-             &shift, DeliveryTime, FuelUsage, BateryUsage, OverTime,
-             &LoadingStations, numberOfElectricCars, numberOfGasCars,
-             ShiftEndsEarly))
+  (new Shift(Boxes, afternoonBoxes, morningBoxes, &shift, DeliveryTime,
+             FuelUsage, BateryUsage, OverTime, &LoadingStations,
+             numberOfElectricCars, numberOfGasCars, ShiftEndsEarly))
       ->Activate();
   Run(); // simulation
 
@@ -110,8 +105,6 @@ int main(int argc, const char **argv) { // experiment description
   Print("Celkem brzkých ukončení směny: %f minut\n", ShiftEndsEarly->Sum());
 
   DeliveryTime->Output();
-  MorningShift->Output();
-  AfternoonShift->Output();
   FuelUsage->Output();
   BateryUsage->Output();
   OverTime->Output();

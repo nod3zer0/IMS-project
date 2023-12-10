@@ -2,14 +2,11 @@
 #include "inc/ElectricCar.h"
 #include "inc/GasCar.h"
 
-Shift::Shift(Stat *AfternoonShift, Stat *MorningShift, int *Boxes,
-             int afternoonBoxes, int morningBoxes, bool *shift,
+Shift::Shift(int *Boxes, int afternoonBoxes, int morningBoxes, bool *shift,
              Stat *DeliveryTime, Stat *FuelUsage, Stat *BateryUsage,
              Stat *OverTime, Store *LoadingStations, int numberOfElectricCars,
              int numberOfGasCars, Stat *ShiftEndsEarly)
     : Process() {
-  this->AfternoonShift = AfternoonShift;
-  this->MorningShift = MorningShift;
   this->Boxes = Boxes;
   this->afternoonBoxes = afternoonBoxes;
   this->morningBoxes = morningBoxes;
@@ -39,6 +36,7 @@ void Shift::Behavior() {
   }
 
   Wait(morningShift); // wait for morning shift to end
+  Print("Ranní směna trvala %f minut\n", morningShift);
 
   if (*Boxes > 0) {
     Print("Dopoledne zbyva %d beden\n", *Boxes);
@@ -48,10 +46,10 @@ void Shift::Behavior() {
     Print("Dopoledne se rozvezlo vše\n");
     Print("Rozvezlo se %d beden\n", morningBoxes - *Boxes);
   }
-  (*MorningShift)(morningShift);
   *Boxes = afternoonBoxes; // set new boxes for afternoon shift
 
   Wait(afternoonShift); // wait for afternoon shift to end
+  Print("Odpolední směna trvala %f minut\n", afternoonShift);
   if (*Boxes > 0) {
     Print("Odpoledne zbyva %d beden\n", *Boxes);
     Print("Rozvezlo se %d beden\n", afternoonBoxes - *Boxes);
@@ -59,6 +57,5 @@ void Shift::Behavior() {
     Print("Odpoledne se Rozvezlo vše\n");
     Print("Rozvezlo se %d beden\n", afternoonBoxes - *Boxes);
   }
-  (*AfternoonShift)(afternoonShift);
   *shift = false; // shift is over
 }

@@ -18,7 +18,7 @@ GasCar::GasCar(int *Boxes, bool *shift, double afternoonShift,
 void GasCar::Behavior() {
   if (!*shift) { // if shift is over cancel
 
-    double overtime = Time - morningShift - afternoonShift;
+    double overtime = Time - (morningShift + afternoonShift);
     if (overtime > 0)
       (*OverTime)(overtime);
 
@@ -33,7 +33,7 @@ void GasCar::Behavior() {
       ;
 
     if (!*shift) { // if shift is over cancel
-      double overtime = Time - morningShift - afternoonShift;
+      double overtime = Time - (morningShift + afternoonShift);
       if (overtime > 0)
         (*OverTime)(overtime);
 

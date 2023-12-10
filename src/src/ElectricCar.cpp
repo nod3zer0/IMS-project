@@ -18,7 +18,7 @@ ElectricCar::ElectricCar(int *Boxes, bool *shift, double afternoonShift,
 
 void ElectricCar::Behavior() {
   if (!*shift) { // if shift is over cancel
-    double overtime = Time - morningShift - afternoonShift;
+    double overtime = Time - (morningShift + afternoonShift);
     if (overtime > 0)
       (*OverTime)(overtime);
 
@@ -44,7 +44,7 @@ void ElectricCar::Behavior() {
       baterryCapacity += ((Time - startingWaitTime) / 60) * 50;
     }
     if (!*shift) { // if shift is over cancel
-      double overtime = Time - morningShift - afternoonShift;
+      double overtime = Time - (morningShift + afternoonShift);
       if (overtime > 0)
         (*OverTime)(overtime);
       Cancel();
