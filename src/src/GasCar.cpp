@@ -48,12 +48,14 @@ void GasCar::Behavior() {
     *Boxes -= carCapacity;
   }
 
-  double loading = Uniform(30, 50);
+  double loading =
+      Uniform(loading_mean - loading_sd, loading_mean + loading_sd);
   Wait(loading); // loading
   Leave(*LoadingStations, 1);
-  double delivery = Uniform(60, 2 * 60);
+  double delivery =
+      Uniform(delivery_mean - delivery_sd, delivery_mean + delivery_sd);
   Wait(delivery); // delivery
-  double returnTime = Uniform(30, 60);
+  double returnTime = Uniform(return_mean - return_sd, return_mean + return_sd);
   Wait(returnTime); // return
   (*DeliveryTime)(loading + delivery + returnTime);
   (*FuelUsage)(
