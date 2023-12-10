@@ -86,9 +86,10 @@ GasCarStart::GasCarStart(int *Boxes, bool *shift, double afternoonShift,
 void GasCarStart::Behavior() {
   if ((Random() * numberOfDaysUntilGasEmpty) >=
       numberOfDaysUntilGasEmpty - 1) { // if gas is empty
-    (new GasCar(this->Boxes, this->shift, this->afternoonShift,
-                this->morningShift, this->FuelUsage, this->DeliveryTime,
-                this->OverTime, this->LoadingStations, this->ShiftEndsEarly))
-        ->Activate();
+    Wait(Uniform(15, 20));
   }
+  (new GasCar(this->Boxes, this->shift, this->afternoonShift,
+              this->morningShift, this->FuelUsage, this->DeliveryTime,
+              this->OverTime, this->LoadingStations, this->ShiftEndsEarly))
+      ->Activate();
 }
