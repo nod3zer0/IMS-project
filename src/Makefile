@@ -21,5 +21,7 @@ clean:
 	rm -rf obj/*
 	rm -f $(TARGET)
 
+run:
+	./ims --electric_cars 1 --gas_cars 2 --morning_boxes 600 --afternoon_boxes 312 --solar_panel_output 100 --morning_shift 320 --afternoon_shift 240
 
 
