@@ -19,8 +19,8 @@ private:
   Stat *ShiftEndsEarly;
   const int loading_mean = 42.22;
   const int loading_sd = 9.235;
-  const int delivery_mean = 93.22;
-  const int delivery_sd = 24.845;
+  const int delivery_mean = 133.67;
+  const int delivery_sd = 16.22;
   const int return_mean = 43.2;
   const int return_sd = 10.95;
   const int spead_mean = 64.22;
