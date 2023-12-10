@@ -98,7 +98,9 @@ int main(int argc, const char **argv) { // experiment description
          (numberOfElectricCars + numberOfGasCars)) /
             60);
 
-  double solarPanelOutputNow = solarPanelOutput * Uniform(0, 1);
+  double solarPanelOutputNow =
+      Uniform(solarPanelOutput - solarPanelOutput * 0.065,
+              solarPanelOutput + solarPanelOutput * 0.065);
   Print("Vyrobeno solárnímy panely: %f Kw\n", solarPanelOutputNow);
 
   Print("Celkem spotřebováno paliva: %f l\n", FuelUsage->Sum());
