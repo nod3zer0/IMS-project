@@ -67,6 +67,10 @@ int main(int argc, const char **argv) { // experiment description
     numberOfGasCars = args.gas_cars;
   if (args.solar_panel_output != -1)
     solarPanelOutput = args.solar_panel_output;
+  if (args.morning_shift != -1)
+    morningShift = args.morning_shift;
+  if (args.afternoon_shift != -1)
+    afternoonShift = args.afternoon_shift;
 
   RandomSeed(time(nullptr));
 
@@ -77,7 +81,8 @@ int main(int argc, const char **argv) { // experiment description
   Init(0, morningShift + afternoonShift + 100);
   (new Shift(Boxes, afternoonBoxes, morningBoxes, &shift, DeliveryTime,
              FuelUsage, BateryUsage, OverTime, &LoadingStations,
-             numberOfElectricCars, numberOfGasCars, ShiftEndsEarly))
+             numberOfElectricCars, numberOfGasCars, ShiftEndsEarly,
+             morningShift, afternoonShift))
       ->Activate();
   Run(); // simulation
 

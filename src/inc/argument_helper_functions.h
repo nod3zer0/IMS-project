@@ -16,6 +16,8 @@ typedef struct args_t {
   int morning_boxes;
   int afternoon_boxes;
   int solar_panel_output;
+  int morning_shift;
+  int afternoon_shift;
   bool help;
   bool err;
 } argsT;

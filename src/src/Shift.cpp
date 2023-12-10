@@ -5,7 +5,8 @@
 Shift::Shift(int *Boxes, int afternoonBoxes, int morningBoxes, bool *shift,
              Stat *DeliveryTime, Stat *FuelUsage, Stat *BateryUsage,
              Stat *OverTime, Store *LoadingStations, int numberOfElectricCars,
-             int numberOfGasCars, Stat *ShiftEndsEarly)
+             int numberOfGasCars, Stat *ShiftEndsEarly, int morningShift,
+             int afternoonShift)
     : Process() {
   this->Boxes = Boxes;
   this->afternoonBoxes = afternoonBoxes;
@@ -19,6 +20,8 @@ Shift::Shift(int *Boxes, int afternoonBoxes, int morningBoxes, bool *shift,
   this->numberOfElectricCars = numberOfElectricCars;
   this->numberOfGasCars = numberOfGasCars;
   this->ShiftEndsEarly = ShiftEndsEarly;
+  this->morningShift = 1.0 * morningShift;
+  this->afternoonShift = 1.0 * afternoonShift;
 }
 
 void Shift::Behavior() {
