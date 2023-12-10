@@ -23,7 +23,7 @@ int main(int argc, const char **argv) { // experiment description
   bool shift = true;
   int solarPanelOutput = 50; // kW
 
-  Store LoadingStations("nakladaci stanice", 3);
+  Store LoadingStations("nakladaci stanice", 2);
 
   Stat *DeliveryTime;
   Stat *FuelUsage;
