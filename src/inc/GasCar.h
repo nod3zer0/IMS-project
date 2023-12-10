@@ -3,7 +3,7 @@ class GasCar : public Process {
 public:
   GasCar(int *Boxes, bool *shift, double afternoonShift, double morningShift,
          Stat *FuelUsage, Stat *DeliveryTime, Stat *OverTime,
-         Store *LoadingStations);
+         Store *LoadingStations, Stat *ShiftEndsEarly);
   void Behavior();
 
 private:
@@ -16,13 +16,14 @@ private:
   Stat *DeliveryTime;
   Stat *OverTime;
   Store *LoadingStations;
+  Stat *ShiftEndsEarly;
 };
 
 class GasCarStart : public Process {
 public:
   GasCarStart(int *Boxes, bool *shift, double afternoonShift,
               double morningShift, Stat *FuelUsage, Stat *DeliveryTime,
-              Stat *OverTime, Store *LoadingStations);
+              Stat *OverTime, Store *LoadingStations, Stat *ShiftEndsEarly);
   void Behavior();
 
 private:
@@ -35,4 +36,5 @@ private:
   Stat *DeliveryTime;
   Stat *OverTime;
   Store *LoadingStations;
+  Stat *ShiftEndsEarly;
 };

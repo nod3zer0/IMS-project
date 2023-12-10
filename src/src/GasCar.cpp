@@ -2,7 +2,7 @@
 
 GasCar::GasCar(int *Boxes, bool *shift, double afternoonShift,
                double morningShift, Stat *FuelUsage, Stat *DeliveryTime,
-               Stat *OverTime, Store *LoadingStations)
+               Stat *OverTime, Store *LoadingStations, Stat *ShiftEndsEarly)
     : Process() {
   this->Boxes = Boxes;
   this->shift = shift;
@@ -12,38 +12,42 @@ GasCar::GasCar(int *Boxes, bool *shift, double afternoonShift,
   this->DeliveryTime = DeliveryTime;
   this->OverTime = OverTime;
   this->LoadingStations = LoadingStations;
+  this->ShiftEndsEarly = ShiftEndsEarly;
 }
 
 void GasCar::Behavior() {
   if (!*shift) { // if shift is over cancel
 
-    double Overtime = Time - morningShift - afternoonShift;
-    if (Overtime > 0)
-      (*OverTime)(Overtime);
+    double overtime = Time - morningShift - afternoonShift;
+    if (overtime > 0)
+      (*OverTime)(overtime);
 
     Cancel();
   }
 
   if (*Boxes <= 0) { // if there is no boxes wait until there is
+    double shiftEndsEarly = Time - morningShift - afternoonShift;
+    if (shiftEndsEarly < 0)
+      (*ShiftEndsEarly)(-shiftEndsEarly);
     while (_WaitUntil(*Boxes > 0 || !*shift))
       ;
+
     if (!*shift) { // if shift is over cancel
-      double Overtime = Time - morningShift - afternoonShift;
-      if (Overtime > 0)
-        (*OverTime)(Overtime);
+      double overtime = Time - morningShift - afternoonShift;
+      if (overtime > 0)
+        (*OverTime)(overtime);
+
       Cancel();
     }
-  } else {
-
-    if (*Boxes <= carCapacity) { // if there is less boxes than car capacity
-                                 // take all
-      *Boxes = 0;
-    } else { // else take car capacity
-      *Boxes -= carCapacity;
-    }
+  }
+  Enter(*LoadingStations, 1);
+  if (*Boxes <= carCapacity) { // if there is less boxes than car capacity
+                               // take all
+    *Boxes = 0;
+  } else { // else take car capacity
+    *Boxes -= carCapacity;
   }
 
-  Enter(*LoadingStations, 1);
   double loading = Uniform(30, 50);
   Wait(loading); // loading
   Leave(*LoadingStations, 1);
@@ -57,14 +61,14 @@ void GasCar::Behavior() {
       Uniform(8, 12)); // 10l 100km
   (new GasCar(this->Boxes, this->shift, this->afternoonShift,
               this->morningShift, this->FuelUsage, this->DeliveryTime,
-              this->OverTime, this->LoadingStations))
+              this->OverTime, this->LoadingStations, this->ShiftEndsEarly))
       ->Activate();
 }
 
 GasCarStart::GasCarStart(int *Boxes, bool *shift, double afternoonShift,
                          double morningShift, Stat *FuelUsage,
                          Stat *DeliveryTime, Stat *OverTime,
-                         Store *LoadingStations)
+                         Store *LoadingStations, Stat *ShiftEndsEarly)
     : Process() {
   this->Boxes = Boxes;
   this->shift = shift;
@@ -74,6 +78,7 @@ GasCarStart::GasCarStart(int *Boxes, bool *shift, double afternoonShift,
   this->DeliveryTime = DeliveryTime;
   this->OverTime = OverTime;
   this->LoadingStations = LoadingStations;
+  this->ShiftEndsEarly = ShiftEndsEarly;
 }
 
 void GasCarStart::Behavior() {
@@ -81,7 +86,7 @@ void GasCarStart::Behavior() {
       numberOfDaysUntilGasEmpty - 1) { // if gas is empty
     (new GasCar(this->Boxes, this->shift, this->afternoonShift,
                 this->morningShift, this->FuelUsage, this->DeliveryTime,
-                this->OverTime, this->LoadingStations))
+                this->OverTime, this->LoadingStations, this->ShiftEndsEarly))
         ->Activate();
   }
 }

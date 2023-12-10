@@ -3,7 +3,7 @@ class ElectricCar : public Process {
 public:
   ElectricCar(int *Boxes, bool *shift, double afternoonShift,
               double morningShift, Stat *BateryUsage, Stat *DeliveryTime,
-              Stat *OverTime, Store *LoadingStations);
+              Stat *OverTime, Store *LoadingStations, Stat *ShiftEndsEarly);
   void Behavior();
 
 private:
@@ -16,4 +16,5 @@ private:
   Stat *DeliveryTime;
   Stat *OverTime;
   Store *LoadingStations;
+  Stat *ShiftEndsEarly;
 };

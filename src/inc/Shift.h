@@ -4,7 +4,8 @@ public:
   Shift(Stat *AfternoonShift, Stat *MorningShift, int *Boxes,
         int afternoonBoxes, int morningBoxes, bool *shift, Stat *DeliveryTime,
         Stat *FuelUsage, Stat *BateryUsage, Stat *OverTime,
-        Store *LoadingStations, int numberOfElectricCars, int numberOfGasCars);
+        Store *LoadingStations, int numberOfElectricCars, int numberOfGasCars,
+        Stat *ShiftEndsEarly);
   void Behavior();
 
 private:
@@ -23,4 +24,5 @@ private:
   Stat *BateryUsage;
   Stat *OverTime;
   Store *LoadingStations;
+  Stat *ShiftEndsEarly;
 };
